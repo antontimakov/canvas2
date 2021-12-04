@@ -6,13 +6,30 @@ class Main {
         Main.canvas = document.getElementById("main");
         Main.context = Main.create();
 
-        Main.context.fillStyle = 'black';
+        Main.defaultColor = 'black';
+        Main.context.fillStyle = Main.defaultColor;
+
         Main.context.strokeRect(
             0,
             0,
             Main.width,
             Main.height
         );
+
+        Main.color1 = [
+            [0,    256,  0],
+            [true, true, true]
+        ];
+
+        Main.color2 = [
+            [0,    0,  256],
+            [true, true, true]
+        ];
+
+        Main.color3 = [
+            [256,    0,  0],
+            [true, true, true]
+        ];
 
         Main.deg = 0;
         Main.first = 0;
@@ -53,7 +70,18 @@ class Main {
     static drawFr() {
         let i = 20;
         let j = 20;
-        Main.drawCircle(i, j, 5);
+        Main.chColor(Main.color3);
+        Main.drawCircle(
+            i,
+            j,
+            25,
+            "rgba(" +
+            Main.color3[0][0] + "," +
+            Main.color3[0][1] + "," +
+            Main.color3[0][2] +
+            ",0.5)",
+            true
+        );
         i = 40;
         j = 40;
         Main.drawCircle(i, j, 7);
@@ -62,25 +90,92 @@ class Main {
     static drawFr2() {
         let i = 60;
         let j = 60;
-        Main.drawCircle(i, j, 9);
+        Main.chColor(Main.color1);
+        Main.drawCircle(
+            i,
+            j,
+            80,
+            "rgba(" +
+                Main.color1[0][0] + "," +
+                Main.color1[0][1] + "," +
+                Main.color1[0][2] +
+                ",0.5)",
+            true
+        );
         i = 80;
         j = 80;
         Main.drawCircle(i, j, 11);
+    }
+    static chColor(color){
+        if (color[0][0] > 256){
+            color[1][0] = false;
+        }
+        if (color[0][0] <= 0){
+            color[1][0] = true;
+        }
+        if (color[1][0]){
+            ++color[0][0];
+        }
+        else{
+            --color[0][0];
+        }
+        if (color[0][1] > 256){
+            color[1][1] = false;
+        }
+        if (color[0][1] <= 0){
+            color[1][1] = true;
+        }
+        if (color[1][1]){
+            ++color[0][1];
+        }
+        else{
+            --color[0][1];
+        }
+        if (color[0][2] > 256){
+            color[1][2] = false;
+        }
+        if (color[0][2] <= 0){
+            color[1][2] = true;
+        }
+        if (color[1][2]){
+            ++color[0][2];
+        }
+        else{
+            --color[0][2];
+        }
     }
 
     static drawFr3() {
         let i = 100;
         let j = 100;
-        Main.drawCircle(i, j, 7);
+        Main.chColor(Main.color2);
+        Main.drawCircle(
+            i,
+            j,
+            40,
+            "rgba(" +
+            Main.color2[0][0] + "," +
+            Main.color2[0][1] + "," +
+            Main.color2[0][2] +
+            ",0.5)",
+            true
+        );
         i = 120;
         j = 120;
         Main.drawCircle(i, j, 5);
     }
 
-    static drawCircle(i, j, radius) {
+    static drawCircle(i, j, radius, color = Main.defaultColor, fill = false) {
+        Main.context.fillStyle = color;
         Main.context.beginPath();
         Main.context.arc(i, j, radius, 0, 2 * Math.PI);
-        Main.context.stroke();
+        if (fill){
+            Main.context.fill();
+        }
+        else{
+            Main.context.stroke();
+        }
+        Main.context.fillStyle = Main.defaultColor;
     }
 
     static drawRotated(degrees, func){
