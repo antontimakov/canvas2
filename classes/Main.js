@@ -8,6 +8,7 @@ class Main {
         Main.canvas = document.getElementById("main");
         Main.context = Main.create();
         Class1.init();
+        //Class2.init();
     }
 
     /**
@@ -54,5 +55,23 @@ class Main {
             Main.context.stroke();
         }
         Main.context.fillStyle = Class1.defaultColor;
+    }
+
+    /**
+     * Отладочная функция. Рисует рамки холста и центр
+     */
+    static test(){
+        Main.context.strokeRect(
+            0,
+            0,
+            Main.width,
+            Main.height
+        );
+        Main.context.strokeRect(
+            Main.width / 2 - 5,
+            Main.height / 2 - 5,
+            10,
+            10
+        );
     }
 }

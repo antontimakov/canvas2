@@ -7,13 +7,6 @@ class Class1{
         // Кол-во шагов до смены направления перетекания цвета или радиуса, чтобы не было дёрганья
         Class1.steps = Class1.stepsDefault;
 
-        Main.context.strokeRect(
-            0,
-            0,
-            Main.width,
-            Main.height
-        );
-
         Class1.color1 = [
             // Текущий цвет
             [0, 256, 0],
