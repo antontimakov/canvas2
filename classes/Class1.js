@@ -3,36 +3,11 @@ class Class1{
         Main.defaultColor = 'black';
         Main.context.fillStyle = Main.defaultColor;
 
-        Class1.stepsDefault = 50;
-        // Кол-во шагов до смены направления перетекания цвета или радиуса, чтобы не было дёрганья
-        Class1.steps = Class1.stepsDefault;
-
-        Class1.color1 = [
-            // Текущий цвет
-            [0, 256, 0],
-            // Значение инкрементации
-            [1, 1, 1]
-        ];
-
-        Class1.color2 = [
-            [0, 0, 256],
-            [1, 1, 1]
-        ];
-
-        Class1.color3 = [
-            [256, 0, 0],
-            [1, 1, 1]
-        ];
-
-        Class1.color4 = [
-            [256, 256, 0],
-            [1, 1, 1]
-        ];
-
-        Class1.radius = [
-            [50,80,120,200],
-            [1,1,1,1]
-        ];
+        Class1.color1 = new Color();
+        Class1.color2 = new Color();
+        Class1.color3 = new Color();
+        Class1.color4 = new Color();
+        Class1.radius = new Color();
 
         // Текущий угол изображения
         Class1.deg = 0;
@@ -49,7 +24,7 @@ class Class1{
     static animate() {
         Main.context.clearRect(0, 0, Main.width, Main.height);
 
-        Class1.chColorRandom(Class1.radius);
+        Class1.radius.chColorRandom();
 
         Class1.draw4(Class1.drawFr);
         Class1.draw4(Class1.drawFr3);
@@ -77,16 +52,12 @@ class Class1{
     static drawFr() {
         let i = 50;
         let j = 50;
-        Class1.chColorRandom(Class1.color1);
+        Class1.color1.chColorRandom();
         Main.drawCircle(
             i,
             j,
-            Class1.radius[0][0],
-            "rgba(" +
-            Class1.color1[0][0] + "," +
-            Class1.color1[0][1] + "," +
-            Class1.color1[0][2] +
-            ",0.5)",
+            Class1.radius.getRandomValue(0),
+            Class1.color1.getColor(),
             true
         );
         i = 100;
@@ -97,16 +68,12 @@ class Class1{
     static drawFr2() {
         let i = 60;
         let j = 60;
-        Class1.chColorRandom(Class1.color2);
+        Class1.color2.chColorRandom();
         Main.drawCircle(
             i,
             j,
-            Class1.radius[0][1],
-            "rgba(" +
-                Class1.color2[0][0] + "," +
-                Class1.color2[0][1] + "," +
-                Class1.color2[0][2] +
-                ",0.5)",
+            Class1.radius.getRandomValue(1),
+            Class1.color2.getColor(),
             true
         );
         i = 80;
@@ -117,16 +84,12 @@ class Class1{
     static drawFr3() {
         let i = 100;
         let j = 100;
-        Class1.chColorRandom(Class1.color3);
+        Class1.color3.chColorRandom();
         Main.drawCircle(
             i,
             j,
-            Class1.radius[0][2],
-            "rgba(" +
-            Class1.color3[0][0] + "," +
-            Class1.color3[0][1] + "," +
-            Class1.color3[0][2] +
-            ",0.5)",
+            Class1.radius.getRandomValue(2),
+            Class1.color3.getColor(),
             true
         );
         i = 120;
@@ -137,41 +100,17 @@ class Class1{
     static drawFr4() {
         let i = 160;
         let j = 160;
-        Class1.chColorRandom(Class1.color4);
+        Class1.color4.chColorRandom();
         Main.drawCircle(
             i,
             j,
-            Class1.radius[0][3],
-            "rgba(" +
-            Class1.color4[0][0] + "," +
-            Class1.color4[0][1] + "," +
-            Class1.color4[0][2] +
-            ",0.5)",
+            Class1.radius.getRandomValue(0) + 20,
+            Class1.color4.getColor(),
             true
         );
         i = 200;
         j = 200;
         Main.drawCircle(i, j, 5);
-    }
-
-    static chColorRandom(color){
-        color[0].forEach((item, i, arr)=>{
-            if (item >= 255) {
-                --arr[i];
-            } else if (item <= 0) {
-                ++arr[i];
-            } else {
-                if (Class1.steps-- <= 0) {
-                    if (Math.random() < 0.5) {
-                        color[1][i] = 1;
-                    } else {
-                        color[1][i] = -1;
-                    }
-                    Class1.steps = Class1.stepsDefault;
-                }
-                arr[i] += color[1][i];
-            }
-        });
     }
 
     static stopAnimate(){
