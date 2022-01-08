@@ -16,18 +16,21 @@ class FigureCl2 {
             Math.random() * 255 + "," +
             Math.random() * 255 + "," +
             Math.random() * 255 +
-            ",0.5" +
+            ",1" +
         ")";
+
+        this.multi = Math.PI / 2;
+        //this.multi = Math.random() * Math.PI / 2;
     }
 
     drawFigure(){
         const cnt = Main.context;
         const coo = this.gcoo;
         const rad = this.step;
-        const delt = this.step * 2;
+        const delt = this.step * this.multi;
 
-        Main.context.strokeStyle = this.color;
-
+        cnt.strokeStyle = this.color;
+        cnt.lineWidth=3;
         cnt.beginPath();
         // право низ
         cnt.moveTo(coo.x + rad,coo.y + rad);

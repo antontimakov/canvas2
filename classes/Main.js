@@ -8,8 +8,8 @@ class Main {
         Main.canvas = document.getElementById("main");
         Main.context = Main.create();
         Main.defaultColor = 'black';
-        //Class1.init();
-        Class2.init();
+        Class1.init();
+        //Class2.init();
     }
 
     /**
@@ -75,4 +75,16 @@ class Main {
             10
         );
     }
+
+    static ch(){
+        if (Class1.stop === false){
+            Class1.stopAnimate();
+            setTimeout(Class2.init, 100);
+        }
+        else{
+            Class2.stopAnimate();
+            setTimeout(Class1.init, 100);
+        }
+    }
+
 }

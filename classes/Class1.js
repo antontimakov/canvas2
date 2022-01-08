@@ -41,6 +41,8 @@ class Class1{
         // Для вращения против часовой
         Class1.second = 0;
 
+        Class1.stop = false;
+
         Class1.animate();
     }
 
@@ -59,7 +61,9 @@ class Class1{
 
         Class1.deg = Class1.second--;
 
-        requestAnimationFrame(Class1.animate);
+        if (Class1.stop === false) {
+            requestAnimationFrame(Class1.animate);
+        }
 
     }
 
@@ -151,22 +155,26 @@ class Class1{
     }
 
     static chColorRandom(color){
-        for (let segmment in color[0]) {
-            if (color[0][segmment] >= 255) {
-                --color[0][segmment];
-            } else if (color[0][segmment] <= 0) {
-                ++color[0][segmment];
+        color[0].forEach((item, i, arr)=>{
+            if (item >= 255) {
+                --arr[i];
+            } else if (item <= 0) {
+                ++arr[i];
             } else {
                 if (Class1.steps-- <= 0) {
                     if (Math.random() < 0.5) {
-                        color[1][segmment] = 1;
+                        color[1][i] = 1;
                     } else {
-                        color[1][segmment] = -1;
+                        color[1][i] = -1;
                     }
                     Class1.steps = Class1.stepsDefault;
                 }
-                color[0][segmment] += color[1][segmment];
+                arr[i] += color[1][i];
             }
-        }
+        });
+    }
+
+    static stopAnimate(){
+        Class1.stop = true;
     }
 }
