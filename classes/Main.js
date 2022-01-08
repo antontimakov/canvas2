@@ -7,8 +7,9 @@ class Main {
         Main.height = 800;
         Main.canvas = document.getElementById("main");
         Main.context = Main.create();
-        Class1.init();
-        //Class2.init();
+        Main.defaultColor = 'black';
+        //Class1.init();
+        Class2.init();
     }
 
     /**
@@ -44,7 +45,7 @@ class Main {
      * @param color Цвет
      * @param fill Нужно ли закрасить
      */
-    static drawCircle(i, j, radius, color = Class1.defaultColor, fill = false) {
+    static drawCircle(i, j, radius, color = Main.defaultColor, fill = false) {
         Main.context.fillStyle = color;
         Main.context.beginPath();
         Main.context.arc(i, j, radius, 0, 2 * Math.PI);
@@ -54,7 +55,7 @@ class Main {
         else{
             Main.context.stroke();
         }
-        Main.context.fillStyle = Class1.defaultColor;
+        Main.context.fillStyle = Main.defaultColor;
     }
 
     /**

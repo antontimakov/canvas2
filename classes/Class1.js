@@ -1,7 +1,7 @@
 class Class1{
     static init(){
-        Class1.defaultColor = 'black';
-        Main.context.fillStyle = Class1.defaultColor;
+        Main.defaultColor = 'black';
+        Main.context.fillStyle = Main.defaultColor;
 
         Class1.stepsDefault = 50;
         // Кол-во шагов до смены направления перетекания цвета или радиуса, чтобы не было дёрганья
