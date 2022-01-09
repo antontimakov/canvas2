@@ -3,24 +3,39 @@ class FigureCl2 {
     constructor(){
         this.step = 0;
 
+        let xMove = 0;
+        let yMove = 0;
+        if (Class2.type === 2){
+            xMove = Class2.center.getRandomValue(0) - 122;
+            yMove = Class2.center.getRandomValue(1) - 122;
+        }
         this.gcoo = {
-            cp1x: Main.width / 2,
-            cp1y: Main.height / 2,
-            cp2x: Main.width / 2,
-            cp2y: Main.height / 2,
-            x: Main.width / 2,
-            y: Main.height / 2
+            cp1x: Main.width / 2 + xMove,
+            cp1y: Main.height / 2 + yMove,
+            cp2x: Main.width / 2 + xMove,
+            cp2y: Main.height / 2 + yMove,
+            x: Main.width / 2 + xMove,
+            y: Main.height / 2 + yMove
         };
 
-        this.color = "rgba(" +
-            Math.random() * 255 + "," +
-            Math.random() * 255 + "," +
-            Math.random() * 255 +
-            ",1" +
-        ")";
+        if (Class2.type === 1) {
+            this.color = "rgba(" +
+                Math.random() * 255 + "," +
+                Math.random() * 255 + "," +
+                Math.random() * 255 +
+                ",1" +
+                ")";
+        }
+        else{
+            this.color =  Class2.color.getColor();
+        }
+        if (Class2.type === 2){
+            if (Class2.step % 30 === 0){
+                this.color = Main.defaultColor;
+            }
+        }
 
         this.multi = Math.PI / 2;
-        //this.multi = Math.random() * Math.PI / 2;
     }
 
     drawFigure(){
@@ -30,7 +45,7 @@ class FigureCl2 {
         const delt = this.step * this.multi;
 
         cnt.strokeStyle = this.color;
-        cnt.lineWidth=3;
+        cnt.lineWidth=2;
         cnt.beginPath();
         // право низ
         cnt.moveTo(coo.x + rad,coo.y + rad);
@@ -50,6 +65,11 @@ class FigureCl2 {
     }
 
     incrStep(){
-        ++this.step;
+        if (Class2.type === 1){
+            this.step += 2;
+        }
+        else{
+            this.step += 3;
+        }
     }
 }

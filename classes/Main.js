@@ -8,8 +8,9 @@ class Main {
         Main.canvas = document.getElementById("main");
         Main.context = Main.create();
         Main.defaultColor = 'black';
+        // Состояние (номер активной анимации)
+        Main.state = 0;
         Class1.init();
-        //Class2.init();
     }
 
     /**
@@ -39,16 +40,16 @@ class Main {
 
     /**
      * Рисует круг
-     * @param i Координата центрак круга по x
-     * @param j Координата центрак круга по y
+     * @param x Координата центрак круга по x
+     * @param y Координата центрак круга по y
      * @param radius Радиус
      * @param color Цвет
-     * @param fill Нужно ли закрасить
+     * @param fill Нужно ли закрасить или только обвести
      */
-    static drawCircle(i, j, radius, color = Main.defaultColor, fill = false) {
+    static drawCircle(x, y, radius, color = Main.defaultColor, fill = false) {
         Main.context.fillStyle = color;
         Main.context.beginPath();
-        Main.context.arc(i, j, radius, 0, 2 * Math.PI);
+        Main.context.arc(x, y, radius, 0, 2 * Math.PI);
         if (fill){
             Main.context.fill();
         }
@@ -76,15 +77,32 @@ class Main {
         );
     }
 
+    /**
+     * Меняет анимацию на следующую
+     */
     static ch(){
-        if (Class1.stop === false){
-            Class1.stopAnimate();
-            setTimeout(Class2.init, 100);
+        // Останавливает все анимации
+        Class1.stopAnimate();
+        Class2.stopAnimate();
+
+        let fn = Class1.init;
+        let param = 1;
+
+        switch (Main.state) {
+            case 1:
+                Main.state = 2;
+                fn = Class2.init;
+                param = 2;
+                break;
+            case 2:
+                Main.state = 0;
+                fn = Class1.init;
+                break;
+            default:
+                Main.state = 1;
+                fn = Class2.init;
         }
-        else{
-            Class2.stopAnimate();
-            setTimeout(Class1.init, 100);
-        }
+        setTimeout(fn, 100, param);
     }
 
 }
